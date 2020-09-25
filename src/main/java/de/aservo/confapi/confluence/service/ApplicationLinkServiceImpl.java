@@ -76,6 +76,12 @@ public class ApplicationLinkServiceImpl implements ApplicationLinksService {
             final ApplicationLinksBean applicationLinksBean,
             final boolean ignoreSetupErrors) {
 
+        //remove any existing link
+        for (ApplicationLink applicationLink : mutatingApplicationLinkService.getApplicationLinks()) {
+            mutatingApplicationLinkService.deleteApplicationLink(applicationLink);
+        }
+
+        //add new links
         applicationLinksBean.getApplicationLinks().forEach(link -> addApplicationLink(link, ignoreSetupErrors));
         return getApplicationLinks();
     }
