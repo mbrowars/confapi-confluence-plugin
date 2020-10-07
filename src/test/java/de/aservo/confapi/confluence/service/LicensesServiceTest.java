@@ -4,7 +4,7 @@ import com.atlassian.confluence.settings.setup.DefaultSingleProductLicenseDetail
 import com.atlassian.sal.api.i18n.InvalidOperationException;
 import com.atlassian.sal.api.license.LicenseHandler;
 import de.aservo.confapi.commons.exception.BadRequestException;
-import de.aservo.confapi.commons.exception.InternalServerErrorException;
+import de.aservo.confapi.commons.exception.NotFoundException;
 import de.aservo.confapi.commons.model.LicenseBean;
 import de.aservo.confapi.commons.model.LicensesBean;
 import org.junit.Before;
@@ -15,6 +15,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static com.atlassian.confluence.setup.ConfluenceBootstrapConstants.DEFAULT_LICENSE_REGISTRY_KEY;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
@@ -33,7 +34,7 @@ public class LicensesServiceTest {
     }
 
     @Test
-    public void testGetLicense() {
+    public void testGetLicenses() {
         DefaultSingleProductLicenseDetailsView testLicense = new DefaultSingleProductLicenseDetailsView(LicenseBean.EXAMPLE_1);
         doReturn(testLicense).when(licenseHandler).getProductLicenseDetails(DEFAULT_LICENSE_REGISTRY_KEY);
 
@@ -42,7 +43,24 @@ public class LicensesServiceTest {
         assertEquals(testLicense.getDescription(), licenses.getLicenses().iterator().next().getDescription());
     }
 
-    @Test(expected = InternalServerErrorException.class)
+    @Test
+    public void testGetLicense() {
+        DefaultSingleProductLicenseDetailsView testLicense = new DefaultSingleProductLicenseDetailsView(LicenseBean.EXAMPLE_1);
+        doReturn(testLicense).when(licenseHandler).getProductLicenseDetails(DEFAULT_LICENSE_REGISTRY_KEY);
+
+        LicenseBean license = licenseService.getLicense(LicenseBean.EXAMPLE_1.getProducts().iterator().next());
+
+        assertNotNull(license);
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void testGetLicenseNotFound() {
+        DefaultSingleProductLicenseDetailsView testLicense = new DefaultSingleProductLicenseDetailsView(LicenseBean.EXAMPLE_1);
+        doReturn(testLicense).when(licenseHandler).getProductLicenseDetails(DEFAULT_LICENSE_REGISTRY_KEY);
+        licenseService.getLicense("not_exists");
+    }
+
+    @Test(expected = BadRequestException.class)
     public void testSetLicensesWithError() throws InvalidOperationException {
         LicensesBean licensesBean = LicensesBean.EXAMPLE_1;
         DefaultSingleProductLicenseDetailsView testLicense = new DefaultSingleProductLicenseDetailsView(licensesBean.getLicenses().iterator().next());
@@ -67,6 +85,16 @@ public class LicensesServiceTest {
 
     @Test
     public void testSetLicense() {
+        LicenseBean licenseBean = LicenseBean.EXAMPLE_1;
+        DefaultSingleProductLicenseDetailsView testLicense = new DefaultSingleProductLicenseDetailsView(licenseBean);
+
+        LicenseBean updatedLicenseBean = licenseService.setLicense(LicenseBean.EXAMPLE_1.getProducts().iterator().next(), licenseBean);
+
+        assertEquals(testLicense.getDescription(), updatedLicenseBean.getDescription());
+    }
+
+    @Test
+    public void testAddLicense() {
         LicenseBean licenseBean = LicenseBean.EXAMPLE_1;
         DefaultSingleProductLicenseDetailsView testLicense = new DefaultSingleProductLicenseDetailsView(licenseBean);
 

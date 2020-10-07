@@ -5,17 +5,18 @@ import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.sal.api.i18n.InvalidOperationException;
 import com.atlassian.sal.api.license.LicenseHandler;
 import com.atlassian.sal.api.license.SingleProductLicenseDetailsView;
-import de.aservo.confapi.confluence.model.util.LicenseBeanUtil;
 import de.aservo.confapi.commons.exception.BadRequestException;
-import de.aservo.confapi.commons.exception.InternalServerErrorException;
+import de.aservo.confapi.commons.exception.NotFoundException;
 import de.aservo.confapi.commons.model.LicenseBean;
 import de.aservo.confapi.commons.model.LicensesBean;
 import de.aservo.confapi.commons.service.api.LicensesService;
+import de.aservo.confapi.confluence.model.util.LicenseBeanUtil;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
+import java.util.Optional;
 
 import static com.atlassian.confluence.setup.ConfluenceBootstrapConstants.DEFAULT_LICENSE_REGISTRY_KEY;
 
@@ -40,7 +41,13 @@ public class LicensesServiceImpl implements LicensesService {
 
     @Override
     public LicenseBean getLicense(@NotNull String product) {
-        return null;
+        Optional<LicenseBean> bean = getLicenses().getLicenses().stream()
+                .filter(licenseBean -> licenseBean.getProducts().contains(product)).findFirst();
+        if (!bean.isPresent()) {
+            throw new NotFoundException(String.format("no license details found for product '%s'", product));
+        } else {
+            return bean.get();
+        }
     }
 
     @Override
@@ -51,7 +58,7 @@ public class LicensesServiceImpl implements LicensesService {
                 try {
                     licenseHandler.removeProductLicense(product);
                 } catch (InvalidOperationException e) {
-                    throw new InternalServerErrorException(String.format("The license for product %s cannot be removed", product));
+                    throw new BadRequestException(String.format("The license for product %s cannot be removed", product));
                 }
             }));
 
@@ -66,8 +73,9 @@ public class LicensesServiceImpl implements LicensesService {
     }
 
     @Override
-    public LicenseBean setLicense(String s, @NotNull LicenseBean licenseBean) {
-        return null;
+    public LicenseBean setLicense(String product, @NotNull LicenseBean licenseBean) {
+        //Confluence only allows to set the Confluence license, add method can be used for put because it replaces the current license
+        return addLicense(licenseBean);
     }
 
     @Override
