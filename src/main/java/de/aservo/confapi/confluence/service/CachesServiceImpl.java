@@ -29,13 +29,7 @@ public class CachesServiceImpl implements CachesService {
     }
 
     @Override
-    public boolean exists(String name) {
-        return cacheManager.getManagedCache(name) != null;
-    }
-
-    @Override
     public Collection<CacheBean> getAllCaches() {
-        // TODO add names - not present jet
         Collection<ManagedCache> managedCacheList = cacheManager.getManagedCaches();
         Collection<CacheBean> cacheList = new ArrayList<>();
 

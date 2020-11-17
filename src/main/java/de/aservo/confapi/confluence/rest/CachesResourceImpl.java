@@ -1,6 +1,5 @@
 package de.aservo.confapi.confluence.rest;
 
-import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.sun.jersey.spi.container.ResourceFilters;
 import de.aservo.confapi.confluence.filter.SysAdminOnlyResourceFilter;
 import de.aservo.confapi.confluence.model.CacheBean;
@@ -39,14 +38,14 @@ public class CachesResourceImpl implements CachesResource {
     @Override
     public Response flushCache(String name) {
         cachesService.flushCache(name);
-        return Response.ok(MediaType.APPLICATION_JSON).build();
+        return Response.ok(cachesService.getCache(name), MediaType.APPLICATION_JSON).build();
     }
 
     @Override
     public Response updateCache(String name, CacheBean cache) {
 
         cachesService.setMaxCacheSize(name, cache.getSize());
-        return Response.ok(MediaType.APPLICATION_JSON).build();
+        return Response.ok(cachesService.getCache(name), MediaType.APPLICATION_JSON).build();
 
     }
 

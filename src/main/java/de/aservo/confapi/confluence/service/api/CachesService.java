@@ -6,8 +6,6 @@ import java.util.Collection;
 
 public interface CachesService {
 
-    boolean exists(String name);
-
     Collection<CacheBean> getAllCaches();
 
     CacheBean getCache(String name);

@@ -59,7 +59,6 @@ public interface CachesResource {
                     @ApiResponse(responseCode = "200", description = "ok", content = @Content(schema = @Schema(implementation = CacheBean.class))),
                     @ApiResponse(responseCode = "401", description = "No admin user"),
                     @ApiResponse(responseCode = "404", description = "Cache not found"),
-                    @ApiResponse(responseCode = "405", description = "Invalid input")
             }
     )
     Response updateCache(@QueryParam("name") final String name, final CacheBean cache);
