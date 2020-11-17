@@ -715,18 +715,6 @@ Initiates an asynchronous import if enabled by server, synchronous otherwise
 |===         
 |Name| Description| Required| Default| Pattern
 
-| contentType 
-|  <<string>> 
-| - 
-| null 
-|  
-
-| formField 
-|  <<boolean>> 
-| - 
-| null 
-|  
-
 | name 
 |  <<string>> 
 | - 
@@ -747,6 +735,18 @@ Initiates an asynchronous import if enabled by server, synchronous otherwise
 
 | inputStream 
 |  <<object>> 
+| - 
+| null 
+|  
+
+| contentType 
+|  <<string>> 
+| - 
+| null 
+|  
+
+| formField 
+|  <<boolean>> 
 | - 
 | null 
 |  
@@ -1128,7 +1128,7 @@ endif::internal-generation[]
 [.flushCache]
 ==== flushCache
     
-`POST /caches/caches/flush/{name}`
+`POST /caches/flush/{name}`
 
 Flushes a cache
 
@@ -1137,7 +1137,7 @@ Flushes a cache
 Empties the specified cache
 
 
-// markup not found, no include::{specDir}caches/caches/flush/\{name\}/POST/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}caches/flush/\{name\}/POST/spec.adoc[opts=optional]
 
 
 
@@ -1198,20 +1198,20 @@ Empties the specified cache
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}caches/caches/flush/\{name\}/POST/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}caches/flush/\{name\}/POST/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}caches/caches/flush/\{name\}/POST/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}caches/flush/\{name\}/POST/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :caches/caches/flush/{name}/POST/POST.json[]
+// file not found, no * wiremock data link :caches/flush/{name}/POST/POST.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}caches/caches/flush/\{name\}/POST/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}caches/flush/\{name\}/POST/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
@@ -1220,7 +1220,7 @@ endif::internal-generation[]
 [.getCache]
 ==== getCache
     
-`GET /caches/caches/{name}`
+`GET /caches/{name}`
 
 Read cache information for a specified cache
 
@@ -1229,7 +1229,7 @@ Read cache information for a specified cache
 Returns configuration for a given cache
 
 
-// markup not found, no include::{specDir}caches/caches/\{name\}/GET/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}caches/\{name\}/GET/spec.adoc[opts=optional]
 
 
 
@@ -1290,20 +1290,20 @@ Returns configuration for a given cache
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}caches/caches/\{name\}/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}caches/\{name\}/GET/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}caches/caches/\{name\}/GET/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}caches/\{name\}/GET/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :caches/caches/{name}/GET/GET.json[]
+// file not found, no * wiremock data link :caches/{name}/GET/GET.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}caches/caches/\{name\}/GET/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}caches/\{name\}/GET/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
@@ -1312,7 +1312,7 @@ endif::internal-generation[]
 [.getCaches]
 ==== getCaches
     
-`GET /caches/caches`
+`GET /caches`
 
 Read all cache informations
 
@@ -1321,7 +1321,7 @@ Read all cache informations
 Returns all information for current cache configuration
 
 
-// markup not found, no include::{specDir}caches/caches/GET/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}caches/GET/spec.adoc[opts=optional]
 
 
 
@@ -1364,20 +1364,20 @@ array[<<CacheBean>>]
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}caches/caches/GET/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}caches/GET/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}caches/caches/GET/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}caches/GET/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :caches/caches/GET/GET.json[]
+// file not found, no * wiremock data link :caches/GET/GET.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}caches/caches/GET/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}caches/GET/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
@@ -1386,7 +1386,7 @@ endif::internal-generation[]
 [.updateCache]
 ==== updateCache
     
-`PUT /caches/caches/{name}`
+`PUT /caches/{name}`
 
 Update an existing cache-size
 
@@ -1395,7 +1395,7 @@ Update an existing cache-size
 Changes the cache size configuration to the specified size
 
 
-// markup not found, no include::{specDir}caches/caches/\{name\}/PUT/spec.adoc[opts=optional]
+// markup not found, no include::{specDir}caches/\{name\}/PUT/spec.adoc[opts=optional]
 
 
 
@@ -1474,20 +1474,20 @@ Changes the cache size configuration to the specified size
 ===== Samples
 
 
-// markup not found, no include::{snippetDir}caches/caches/\{name\}/PUT/http-request.adoc[opts=optional]
+// markup not found, no include::{snippetDir}caches/\{name\}/PUT/http-request.adoc[opts=optional]
 
 
-// markup not found, no include::{snippetDir}caches/caches/\{name\}/PUT/http-response.adoc[opts=optional]
+// markup not found, no include::{snippetDir}caches/\{name\}/PUT/http-response.adoc[opts=optional]
 
 
 
-// file not found, no * wiremock data link :caches/caches/{name}/PUT/PUT.json[]
+// file not found, no * wiremock data link :caches/{name}/PUT/PUT.json[]
 
 
 ifdef::internal-generation[]
 ===== Implementation
 
-// markup not found, no include::{specDir}caches/caches/\{name\}/PUT/implementation.adoc[opts=optional]
+// markup not found, no include::{specDir}caches/\{name\}/PUT/implementation.adoc[opts=optional]
 
 
 endif::internal-generation[]
@@ -4222,21 +4222,21 @@ endif::internal-generation[]
 
 | currentHeapSize 
 |  
-| String  
+| Long  
 | 
-|  
+| int64 
 
 | effectivenessInPercent 
 |  
-| String  
+| Double  
 | 
-|  
+| double 
 
 | utilisationInPercent 
 |  
-| String  
+| Double  
 | 
-|  
+| double 
 
 |===
 
@@ -4927,18 +4927,6 @@ endif::internal-generation[]
 |===         
 | Field Name| Required| Type| Description| Format
 
-| contentType 
-|  
-| String  
-| 
-|  
-
-| formField 
-|  
-| Boolean  
-| 
-|  
-
 | name 
 |  
 | String  
@@ -4960,6 +4948,18 @@ endif::internal-generation[]
 | inputStream 
 |  
 | Object  
+| 
+|  
+
+| contentType 
+|  
+| String  
+| 
+|  
+
+| formField 
+|  
+| Boolean  
 | 
 |  
 

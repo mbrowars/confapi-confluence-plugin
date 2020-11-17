@@ -2,15 +2,18 @@ package de.aservo.confapi.confluence.service;
 
 
 import com.atlassian.cache.CacheManager;
+import com.atlassian.cache.CacheStatisticsKey;
 import com.atlassian.cache.ManagedCache;
 import com.atlassian.confluence.cache.CacheConfigManager;
 import com.atlassian.plugin.spring.scanner.annotation.export.ExportAsService;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import de.aservo.confapi.commons.exception.NotFoundException;
+import de.aservo.confapi.confluence.model.CacheBean;
 import de.aservo.confapi.confluence.service.api.CachesService;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Component
@@ -35,17 +38,46 @@ public class CachesServiceImpl implements CachesService {
     }
 
     @Override
-    public Collection<ManagedCache> getAllManagedCaches() {
-        Collection<ManagedCache> cacheList = cacheManager.getManagedCaches();
+    public Collection<CacheBean> getAllCaches() {
+        // TODO add names - not present jet
+        Collection<ManagedCache> managedCacheList = cacheManager.getManagedCaches();
+        Collection<CacheBean> cacheList = new ArrayList<>();
+
+        managedCacheList.forEach(cache -> {
+
+            // create new CacheBean
+            CacheBean cacheBean = new CacheBean();
+            cacheBean.setName(cache.getName());
+            cacheBean.setCurrentHeapSize(cache.getStatistics().get(CacheStatisticsKey.HEAP_SIZE).get());
+
+            cacheBean.setEffectivenessInPercent(getEffectiveness(cache));
+            cacheBean.setSize(cache.currentMaxEntries());
+
+            cacheBean.setUtilisationInPercent(getUtilization(cache));
+
+            cacheList.add(cacheBean);
+        });
         //TODO: error handling
         return cacheList;
     }
 
     @Override
-    public ManagedCache getCache(String name) {
+    public CacheBean getCache(String name) {
         ManagedCache cache = cacheManager.getManagedCache(name);
-        //TODO: error handling
-        return cache;
+        CacheBean cacheBean = new CacheBean();
+
+        if (cache != null) {
+            cacheBean.setName(cache.getName());
+            cacheBean.setSize(cache.currentMaxEntries());
+            cacheBean.setCurrentHeapSize(cache.getStatistics().get(CacheStatisticsKey.HEAP_SIZE).get());
+            cacheBean.setEffectivenessInPercent(getEffectiveness(cache));
+            cacheBean.setUtilisationInPercent(getUtilization(cache));
+        } else {
+            throw new NotFoundException(String.format(
+                    "Given cache with name '%s' not found", name));
+        }
+
+        return cacheBean;
     }
 
 
@@ -59,5 +91,35 @@ public class CachesServiceImpl implements CachesService {
                     "Given cache with name '%s' not found", name));
         }
         //TODO: error handling
+    }
+
+    private double getEffectiveness(long hit, long miss) {
+        return (double) hit / (hit + miss);
+    }
+
+    private double getEffectiveness(ManagedCache cache) {
+        long hit = cache.getStatistics().get(CacheStatisticsKey.HIT_COUNT).get();
+        long miss = cache.getStatistics().get(CacheStatisticsKey.MISS_COUNT).get();
+        return (double) hit *100 / (hit + miss);
+    }
+
+    private Double getUtilization(long objects, Integer size) {
+        // currentMaxEntries can be null so check this first
+        if (size != null) {
+            return (double) objects * 100 / size;
+        }
+        return null;
+    }
+
+    private Double getUtilization(ManagedCache cache) {
+        // currentMaxEntries can be null so check this first
+
+        long objects = cache.getStatistics().get(CacheStatisticsKey.SIZE).get();
+        Integer size = cache.currentMaxEntries();
+
+        if (size != null) {
+            return (double) objects / size;
+        }
+        return null;
     }
 }

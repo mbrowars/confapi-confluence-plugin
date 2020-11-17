@@ -14,7 +14,6 @@ import javax.ws.rs.core.Response;
 public interface CachesResource {
 
     @GET
-    @Path("/caches")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
@@ -33,7 +32,7 @@ public interface CachesResource {
     Response getCaches();
 
     @GET
-    @Path("/caches/{name}")
+    @Path("/{name}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
@@ -49,7 +48,7 @@ public interface CachesResource {
     Response getCache(@QueryParam("name") final String name);
 
     @PUT
-    @Path("/caches/{name}")
+    @Path("/{name}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
@@ -66,7 +65,7 @@ public interface CachesResource {
     Response updateCache(@QueryParam("name") final String name, final int size);
 
     @POST
-    @Path("/caches/flush/{name}")
+    @Path("/flush/{name}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(

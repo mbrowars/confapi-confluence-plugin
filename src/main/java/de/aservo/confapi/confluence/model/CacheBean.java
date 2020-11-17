@@ -1,5 +1,6 @@
 package de.aservo.confapi.confluence.model;
 
+import com.atlassian.cache.CacheStatisticsKey;
 import de.aservo.confapi.commons.constants.ConfAPI;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,8 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.SortedMap;
+import java.util.function.Supplier;
 
 @Data
 @NoArgsConstructor
@@ -19,15 +22,15 @@ public class CacheBean {
     private String name;
 
     @XmlElement
-    private int size;
+    private Integer size;
 
     @XmlElement
-    private String currentHeapSize;
+    private long currentHeapSize;
 
     @XmlElement
-    private String effectivenessInPercent;
+    private double effectivenessInPercent;
 
     @XmlElement
-    private String utilisationInPercent;
+    private Double utilisationInPercent;
 
 }

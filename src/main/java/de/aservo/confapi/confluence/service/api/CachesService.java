@@ -1,6 +1,6 @@
 package de.aservo.confapi.confluence.service.api;
 
-import com.atlassian.cache.ManagedCache;
+import de.aservo.confapi.confluence.model.CacheBean;
 
 import java.util.Collection;
 
@@ -8,9 +8,9 @@ public interface CachesService {
 
     boolean exists(String name);
 
-    Collection<ManagedCache> getAllManagedCaches();
+    Collection<CacheBean> getAllCaches();
 
-    ManagedCache getCache(String name);
+    CacheBean getCache(String name);
 
     void setMaxCacheSize(String name, int newValue);
 
