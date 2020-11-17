@@ -7,7 +7,6 @@ import com.atlassian.confluence.cache.CacheConfigManager;
 import com.atlassian.plugin.spring.scanner.annotation.export.ExportAsService;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import de.aservo.confapi.commons.exception.NotFoundException;
-import de.aservo.confapi.confluence.service.api.BackupService;
 import de.aservo.confapi.confluence.service.api.CachesService;
 import org.springframework.stereotype.Component;
 
