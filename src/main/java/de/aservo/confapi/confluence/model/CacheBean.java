@@ -25,7 +25,7 @@ public class CacheBean {
     private Integer size;
 
     @XmlElement
-    private long currentHeapSize;
+    private long currentHeapSizeInByte;
 
     @XmlElement
     private double effectivenessInPercent;

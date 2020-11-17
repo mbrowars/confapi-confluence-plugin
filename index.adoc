@@ -1143,11 +1143,7 @@ Empties the specified cache
 
 ===== Parameters
 
-
-
-
-
-====== Query Parameters
+====== Path Parameters
 
 [cols="2,3,1,1,1"]
 |===         
@@ -1155,11 +1151,15 @@ Empties the specified cache
 
 | name 
 |   
-| - 
+| X 
 | null 
 |  
 
 |===         
+
+
+
+
 
 
 ===== Return Type
@@ -1235,11 +1235,7 @@ Returns configuration for a given cache
 
 ===== Parameters
 
-
-
-
-
-====== Query Parameters
+====== Path Parameters
 
 [cols="2,3,1,1,1"]
 |===         
@@ -1247,11 +1243,15 @@ Returns configuration for a given cache
 
 | name 
 |   
-| - 
+| X 
 | null 
 |  
 
 |===         
+
+
+
+
 
 
 ===== Return Type
@@ -1401,6 +1401,19 @@ Changes the cache size configuration to the specified size
 
 ===== Parameters
 
+====== Path Parameters
+
+[cols="2,3,1,1,1"]
+|===         
+|Name| Description| Required| Default| Pattern
+
+| name 
+|   
+| X 
+| null 
+|  
+
+|===         
 
 ===== Body Parameter
 
@@ -1418,19 +1431,6 @@ Changes the cache size configuration to the specified size
 
 
 
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===         
-|Name| Description| Required| Default| Pattern
-
-| name 
-|   
-| - 
-| null 
-|  
-
-|===         
 
 
 ===== Return Type
@@ -1462,11 +1462,6 @@ Changes the cache size configuration to the specified size
 
 | 404
 | Cache not found
-|  <<>>
-
-
-| 405
-| Invalid input
 |  <<>>
 
 |===         
@@ -4005,6 +4000,36 @@ endif::internal-generation[]
 | 
 | date-time 
 
+| server 
+|  
+| DirectoryLdapServer  
+| 
+|  
+
+| permissions 
+|  
+| DirectoryLdapPermissions  
+| 
+|  
+
+| advanced 
+|  
+| DirectoryInternalAdvanced  
+| 
+|  
+
+| credentialPolicy 
+|  
+| DirectoryInternalCredentialPolicy  
+| 
+|  
+
+| schema 
+|  
+| DirectoryLdapSchema  
+| 
+|  
+
 |===
 
 
@@ -4190,7 +4215,7 @@ endif::internal-generation[]
 | 
 | int32 
 
-| currentHeapSize 
+| currentHeapSizeInByte 
 |  
 | Long  
 | 

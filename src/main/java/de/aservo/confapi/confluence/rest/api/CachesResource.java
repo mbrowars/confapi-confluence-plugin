@@ -45,7 +45,7 @@ public interface CachesResource {
                     @ApiResponse(responseCode = "404", description = "Cache not found")
             }
     )
-    Response getCache(@QueryParam("name") final String name);
+    Response getCache(@PathParam("name") final String name);
 
     @PUT
     @Path("/{name}")
@@ -61,7 +61,7 @@ public interface CachesResource {
                     @ApiResponse(responseCode = "404", description = "Cache not found"),
             }
     )
-    Response updateCache(@QueryParam("name") final String name, final CacheBean cache);
+    Response updateCache(@PathParam("name") final String name, final CacheBean cache);
 
     @POST
     @Path("/flush/{name}")
@@ -77,6 +77,6 @@ public interface CachesResource {
                     @ApiResponse(responseCode = "404", description = "Cache not found")
             }
     )
-    Response flushCache(@QueryParam("name") final String name);
+    Response flushCache(@PathParam("name") final String name);
 
 }

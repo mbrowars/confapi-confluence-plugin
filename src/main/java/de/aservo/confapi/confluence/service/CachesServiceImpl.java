@@ -38,7 +38,7 @@ public class CachesServiceImpl implements CachesService {
             // create new CacheBean
             CacheBean cacheBean = new CacheBean();
             cacheBean.setName(cache.getName());
-            cacheBean.setCurrentHeapSize(cache.getStatistics().get(CacheStatisticsKey.HEAP_SIZE).get());
+            cacheBean.setCurrentHeapSizeInByte(cache.getStatistics().get(CacheStatisticsKey.HEAP_SIZE).get());
 
             cacheBean.setEffectivenessInPercent(getEffectiveness(cache));
             cacheBean.setSize(cache.currentMaxEntries());
@@ -59,7 +59,7 @@ public class CachesServiceImpl implements CachesService {
         if (cache != null) {
             cacheBean.setName(cache.getName());
             cacheBean.setSize(cache.currentMaxEntries());
-            cacheBean.setCurrentHeapSize(cache.getStatistics().get(CacheStatisticsKey.HEAP_SIZE).get());
+            cacheBean.setCurrentHeapSizeInByte(cache.getStatistics().get(CacheStatisticsKey.HEAP_SIZE).get());
             cacheBean.setEffectivenessInPercent(getEffectiveness(cache));
             cacheBean.setUtilisationInPercent(getUtilization(cache));
         } else {
