@@ -7,6 +7,7 @@ import com.atlassian.cache.ManagedCache;
 import com.atlassian.confluence.cache.CacheConfigManager;
 import com.atlassian.plugin.spring.scanner.annotation.export.ExportAsService;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
+import de.aservo.confapi.commons.exception.InternalServerErrorException;
 import de.aservo.confapi.commons.exception.NotFoundException;
 import de.aservo.confapi.confluence.model.CacheBean;
 import de.aservo.confapi.confluence.service.api.CachesService;
@@ -20,15 +21,11 @@ import java.util.Collection;
 @ExportAsService(CachesService.class)
 public class CachesServiceImpl implements CachesService {
 
-    private final CacheConfigManager cacheConfigManager;
     private final CacheManager cacheManager;
 
     @Inject
     public CachesServiceImpl(
-            @ComponentImport CacheConfigManager cacheSettingsManager,
             @ComponentImport CacheManager cacheManager) {
-
-        this.cacheConfigManager = cacheSettingsManager;
         this.cacheManager = cacheManager;
     }
 
@@ -85,7 +82,10 @@ public class CachesServiceImpl implements CachesService {
     public void setMaxCacheSize(String name, int newValue) {
         ManagedCache cache = cacheManager.getManagedCache(name);
         if (cache != null) {
-            cacheConfigManager.changeMaxCacheSize(name, newValue);
+            if (!cache.updateMaxEntries(newValue)) {
+                throw new InternalServerErrorException(String.format(
+                        "Given cache with name '%s' does not support cache resizing", name));
+            }
         } else {
             throw new NotFoundException(String.format(
                     "Given cache with name '%s' not found", name));
@@ -100,7 +100,7 @@ public class CachesServiceImpl implements CachesService {
     private double getEffectiveness(ManagedCache cache) {
         long hit = cache.getStatistics().get(CacheStatisticsKey.HIT_COUNT).get();
         long miss = cache.getStatistics().get(CacheStatisticsKey.MISS_COUNT).get();
-        return (double) hit *100 / (hit + miss);
+        return (double) hit * 100 / (hit + miss);
     }
 
     private Double getUtilization(long objects, Integer size) {

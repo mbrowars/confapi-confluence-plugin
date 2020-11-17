@@ -42,11 +42,10 @@ public class CachesResourceImpl implements CachesResource {
 
     @Override
     public Response updateCache(String name, int size) {
-        if (cachesService.exists(name)) {
-            cachesService.setMaxCacheSize(name, size);
-            return Response.ok(MediaType.APPLICATION_JSON).build();
-        }
-        return Response.status(Response.Status.NOT_FOUND).build();
+
+        cachesService.setMaxCacheSize(name, size);
+        return Response.ok(MediaType.APPLICATION_JSON).build();
+
     }
 
 }
