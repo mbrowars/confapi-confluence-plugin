@@ -38,7 +38,8 @@ public class CachesResourceImpl implements CachesResource {
 
     @Override
     public Response flushCache(String name) {
-        return null;
+        cachesService.flushCache(name);
+        return Response.ok(MediaType.APPLICATION_JSON).build();
     }
 
     @Override

@@ -4,7 +4,6 @@ package de.aservo.confapi.confluence.service;
 import com.atlassian.cache.CacheManager;
 import com.atlassian.cache.CacheStatisticsKey;
 import com.atlassian.cache.ManagedCache;
-import com.atlassian.confluence.cache.CacheConfigManager;
 import com.atlassian.plugin.spring.scanner.annotation.export.ExportAsService;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import de.aservo.confapi.commons.exception.InternalServerErrorException;
