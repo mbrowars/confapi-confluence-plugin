@@ -1,5 +1,6 @@
 package de.aservo.confapi.confluence.rest;
 
+import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.sun.jersey.spi.container.ResourceFilters;
 import de.aservo.confapi.confluence.filter.SysAdminOnlyResourceFilter;
 import de.aservo.confapi.confluence.rest.api.CachesResource;
