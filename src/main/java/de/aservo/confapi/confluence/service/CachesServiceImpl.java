@@ -93,6 +93,23 @@ public class CachesServiceImpl implements CachesService {
         //TODO: error handling
     }
 
+    @Override
+    public void flushCache(String name) {
+        ManagedCache cache = cacheManager.getManagedCache(name);
+        if (cache != null) {
+            if (cache.isFlushable()) {
+                cache.clear();
+            } else {
+                throw new InternalServerErrorException(String.format(
+                        "Given cache with name '%s' is not flushable", name));
+            }
+        } else {
+            throw new NotFoundException(String.format(
+                    "Given cache with name '%s' not found", name));
+        }
+
+    }
+
     private double getEffectiveness(long hit, long miss) {
         return (double) hit / (hit + miss);
     }

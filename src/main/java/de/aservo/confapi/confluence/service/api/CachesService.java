@@ -14,4 +14,6 @@ public interface CachesService {
 
     void setMaxCacheSize(String name, int newValue);
 
+    void flushCache(String name);
+
 }
