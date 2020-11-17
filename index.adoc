@@ -1408,8 +1408,8 @@ Changes the cache size configuration to the specified size
 |===         
 |Name| Description| Required| Default| Pattern
 
-| body 
-|  <<integer>> 
+| CacheBean 
+|  <<CacheBean>> 
 | - 
 |  
 |  
@@ -4004,36 +4004,6 @@ endif::internal-generation[]
 | Date  
 | 
 | date-time 
-
-| server 
-|  
-| DirectoryLdapServer  
-| 
-|  
-
-| permissions 
-|  
-| DirectoryLdapPermissions  
-| 
-|  
-
-| advanced 
-|  
-| DirectoryInternalAdvanced  
-| 
-|  
-
-| credentialPolicy 
-|  
-| DirectoryInternalCredentialPolicy  
-| 
-|  
-
-| schema 
-|  
-| DirectoryLdapSchema  
-| 
-|  
 
 |===
 

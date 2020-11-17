@@ -54,7 +54,7 @@ public class CachesServiceImpl implements CachesService {
 
             cacheList.add(cacheBean);
         });
-        //TODO: error handling
+
         return cacheList;
     }
 
@@ -90,7 +90,6 @@ public class CachesServiceImpl implements CachesService {
             throw new NotFoundException(String.format(
                     "Given cache with name '%s' not found", name));
         }
-        //TODO: error handling
     }
 
     @Override

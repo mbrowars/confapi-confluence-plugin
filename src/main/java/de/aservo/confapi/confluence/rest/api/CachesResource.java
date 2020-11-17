@@ -62,7 +62,7 @@ public interface CachesResource {
                     @ApiResponse(responseCode = "405", description = "Invalid input")
             }
     )
-    Response updateCache(@QueryParam("name") final String name, final int size);
+    Response updateCache(@QueryParam("name") final String name, final CacheBean cache);
 
     @POST
     @Path("/flush/{name}")
