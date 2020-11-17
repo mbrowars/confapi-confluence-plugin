@@ -118,7 +118,7 @@ public class CachesServiceImpl implements CachesService {
         Integer size = cache.currentMaxEntries();
 
         if (size != null) {
-            return (double) objects / size;
+            return (double) objects * 100 / size;
         }
         return null;
     }

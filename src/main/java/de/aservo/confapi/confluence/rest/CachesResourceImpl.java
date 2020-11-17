@@ -27,7 +27,7 @@ public class CachesResourceImpl implements CachesResource {
 
     @Override
     public Response getCaches() {
-        return Response.ok(cachesService.getAllManagedCaches(), MediaType.APPLICATION_JSON).build();
+        return Response.ok(cachesService.getAllCaches(), MediaType.APPLICATION_JSON).build();
     }
 
     @Override
