@@ -1,5 +1,6 @@
 package de.aservo.confapi.confluence.rest.api;
 
+import de.aservo.confapi.commons.model.ErrorCollection;
 import de.aservo.confapi.confluence.model.CacheBean;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -26,7 +27,8 @@ public interface CachesResource {
                                     mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = CacheBean.class)))}
                     ),
-                    @ApiResponse(responseCode = "401", description = "No admin user")
+                    @ApiResponse(responseCode = "401", description = "No admin user"),
+                    @ApiResponse(content = @Content(schema = @Schema(implementation = ErrorCollection.class)))
             }
     )
     Response getCaches();
@@ -41,8 +43,8 @@ public interface CachesResource {
             description = "Returns configuration for a given cache",
             responses = {
                     @ApiResponse(responseCode = "200", description = "ok", content = @Content(schema = @Schema(implementation = CacheBean.class))),
-                    @ApiResponse(responseCode = "401", description = "No admin user"),
-                    @ApiResponse(responseCode = "404", description = "Cache not found")
+                    @ApiResponse(responseCode = "404", description = "Cache not found"),
+                    @ApiResponse(content = @Content(schema = @Schema(implementation = ErrorCollection.class)))
             }
     )
     Response getCache(@PathParam("name") final String name);
@@ -57,8 +59,8 @@ public interface CachesResource {
             description = "Changes the cache size configuration to the specified size",
             responses = {
                     @ApiResponse(responseCode = "200", description = "ok", content = @Content(schema = @Schema(implementation = CacheBean.class))),
-                    @ApiResponse(responseCode = "401", description = "No admin user"),
                     @ApiResponse(responseCode = "404", description = "Cache not found"),
+                    @ApiResponse(content = @Content(schema = @Schema(implementation = ErrorCollection.class)))
             }
     )
     Response updateCache(@PathParam("name") final String name, final CacheBean cache);
@@ -73,8 +75,8 @@ public interface CachesResource {
             description = "Empties the specified cache",
             responses = {
                     @ApiResponse(responseCode = "200", description = "ok", content = @Content(schema = @Schema(implementation = CacheBean.class))),
-                    @ApiResponse(responseCode = "401", description = "No admin user"),
-                    @ApiResponse(responseCode = "404", description = "Cache not found")
+                    @ApiResponse(responseCode = "404", description = "Cache not found"),
+                    @ApiResponse(content = @Content(schema = @Schema(implementation = ErrorCollection.class)))
             }
     )
     Response flushCache(@PathParam("name") final String name);
