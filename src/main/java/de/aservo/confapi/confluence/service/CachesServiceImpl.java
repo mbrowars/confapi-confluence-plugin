@@ -39,11 +39,10 @@ public class CachesServiceImpl implements CachesService {
             CacheBean cacheBean = new CacheBean();
             cacheBean.setName(cache.getName());
             cacheBean.setCurrentHeapSizeInByte(cache.getStatistics().get(CacheStatisticsKey.HEAP_SIZE).get());
-
             cacheBean.setEffectivenessInPercent(getEffectiveness(cache));
             cacheBean.setSize(cache.currentMaxEntries());
-
             cacheBean.setUtilisationInPercent(getUtilization(cache));
+            cacheBean.setFlushable(cache.isFlushable());
 
             cacheList.add(cacheBean);
         });
@@ -62,6 +61,7 @@ public class CachesServiceImpl implements CachesService {
             cacheBean.setCurrentHeapSizeInByte(cache.getStatistics().get(CacheStatisticsKey.HEAP_SIZE).get());
             cacheBean.setEffectivenessInPercent(getEffectiveness(cache));
             cacheBean.setUtilisationInPercent(getUtilization(cache));
+            cacheBean.setFlushable(cache.isFlushable());
         } else {
             throw new NotFoundException(String.format(
                     "Given cache with name '%s' not found", name));
