@@ -18,18 +18,18 @@ public class CacheBean {
     private String name;
 
     @XmlElement
-    private Integer size;
+    private Integer maxObjectSize;
 
     @XmlElement
-    private long currentHeapSizeInByte;
+    private Long currentHeapSizeInByte;
 
     @XmlElement
-    private double effectivenessInPercent;
+    private Double effectivenessInPercent;
 
     @XmlElement
     private Double utilisationInPercent;
 
     @XmlElement
-    private boolean flushable;
+    private Boolean flushable;
 
 }

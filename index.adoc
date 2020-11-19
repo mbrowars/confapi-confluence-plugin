@@ -715,6 +715,12 @@ Initiates an asynchronous import if enabled by server, synchronous otherwise
 |===         
 |Name| Description| Required| Default| Pattern
 
+| formField 
+|  <<boolean>> 
+| - 
+| null 
+|  
+
 | name 
 |  <<string>> 
 | - 
@@ -741,12 +747,6 @@ Initiates an asynchronous import if enabled by server, synchronous otherwise
 
 | contentType 
 |  <<string>> 
-| - 
-| null 
-|  
-
-| formField 
-|  <<boolean>> 
 | - 
 | null 
 |  
@@ -1184,14 +1184,14 @@ Empties the specified cache
 |  <<CacheBean>>
 
 
-| 401
-| No admin user
-|  <<>>
-
-
 | 404
 | Cache not found
 |  <<>>
+
+
+| 0
+| 
+|  <<ErrorCollection>>
 
 |===         
 
@@ -1276,14 +1276,14 @@ Returns configuration for a given cache
 |  <<CacheBean>>
 
 
-| 401
-| No admin user
-|  <<>>
-
-
 | 404
 | Cache not found
 |  <<>>
+
+
+| 0
+| 
+|  <<ErrorCollection>>
 
 |===         
 
@@ -1358,6 +1358,11 @@ array[<<CacheBean>>]
 | 401
 | No admin user
 |  <<>>
+
+
+| 0
+| 
+|  <<ErrorCollection>>
 
 |===         
 
@@ -1455,14 +1460,14 @@ Changes the cache size configuration to the specified size
 |  <<CacheBean>>
 
 
-| 401
-| No admin user
-|  <<>>
-
-
 | 404
 | Cache not found
 |  <<>>
+
+
+| 0
+| 
+|  <<ErrorCollection>>
 
 |===         
 
@@ -4209,7 +4214,7 @@ endif::internal-generation[]
 | 
 |  
 
-| size 
+| maxObjectSize 
 |  
 | Integer  
 | 
@@ -4928,6 +4933,12 @@ endif::internal-generation[]
 |===         
 | Field Name| Required| Type| Description| Format
 
+| formField 
+|  
+| Boolean  
+| 
+|  
+
 | name 
 |  
 | String  
@@ -4955,12 +4966,6 @@ endif::internal-generation[]
 | contentType 
 |  
 | String  
-| 
-|  
-
-| formField 
-|  
-| Boolean  
 | 
 |  
 

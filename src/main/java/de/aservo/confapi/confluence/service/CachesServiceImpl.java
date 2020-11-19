@@ -6,6 +6,7 @@ import com.atlassian.cache.CacheStatisticsKey;
 import com.atlassian.cache.ManagedCache;
 import com.atlassian.plugin.spring.scanner.annotation.export.ExportAsService;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
+import de.aservo.confapi.commons.exception.BadRequestException;
 import de.aservo.confapi.commons.exception.InternalServerErrorException;
 import de.aservo.confapi.commons.exception.NotFoundException;
 import de.aservo.confapi.confluence.model.CacheBean;
@@ -40,7 +41,7 @@ public class CachesServiceImpl implements CachesService {
             cacheBean.setName(cache.getName());
             cacheBean.setCurrentHeapSizeInByte(cache.getStatistics().get(CacheStatisticsKey.HEAP_SIZE).get());
             cacheBean.setEffectivenessInPercent(getEffectiveness(cache));
-            cacheBean.setSize(cache.currentMaxEntries());
+            cacheBean.setMaxObjectSize(cache.currentMaxEntries());
             cacheBean.setUtilisationInPercent(getUtilization(cache));
             cacheBean.setFlushable(cache.isFlushable());
 
@@ -57,7 +58,7 @@ public class CachesServiceImpl implements CachesService {
 
         if (cache != null) {
             cacheBean.setName(cache.getName());
-            cacheBean.setSize(cache.currentMaxEntries());
+            cacheBean.setMaxObjectSize(cache.currentMaxEntries());
             cacheBean.setCurrentHeapSizeInByte(cache.getStatistics().get(CacheStatisticsKey.HEAP_SIZE).get());
             cacheBean.setEffectivenessInPercent(getEffectiveness(cache));
             cacheBean.setUtilisationInPercent(getUtilization(cache));
@@ -76,7 +77,7 @@ public class CachesServiceImpl implements CachesService {
         ManagedCache cache = cacheManager.getManagedCache(name);
         if (cache != null) {
             if (!cache.updateMaxEntries(newValue)) {
-                throw new InternalServerErrorException(String.format(
+                throw new BadRequestException(String.format(
                         "Given cache with name '%s' does not support cache resizing", name));
             }
         } else {
@@ -92,7 +93,7 @@ public class CachesServiceImpl implements CachesService {
             if (cache.isFlushable()) {
                 cache.clear();
             } else {
-                throw new InternalServerErrorException(String.format(
+                throw new BadRequestException(String.format(
                         "Given cache with name '%s' is not flushable", name));
             }
         } else {

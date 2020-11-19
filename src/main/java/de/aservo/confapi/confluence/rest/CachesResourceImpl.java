@@ -44,7 +44,7 @@ public class CachesResourceImpl implements CachesResource {
     @Override
     public Response updateCache(String name, CacheBean cache) {
 
-        cachesService.setMaxCacheSize(name, cache.getSize());
+        cachesService.setMaxCacheSize(name, cache.getMaxObjectSize());
         return Response.ok(cachesService.getCache(name), MediaType.APPLICATION_JSON).build();
 
     }
